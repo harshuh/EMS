@@ -51,7 +51,7 @@ namespace EMS.Controllers
                 return Conflict($"An employee with EmployeeId {employee.EmployeeId} already exists.");
             }
 
-            return Created("api/employees/{id}",body);
+            return Created("api/employees/{id}", body);
 
         }
 
@@ -64,6 +64,41 @@ namespace EMS.Controllers
 
             if (data == null)
                 return NotFound($"No employee found with EmployeeId {employeeId}");
+
+            return Ok(data);
+        }
+
+
+        // Update Employee
+        [HttpPut]
+
+        [Route("{employeeId:int}")]
+        public IActionResult UpdateEmployeeById(int employeeId , Employee employee)
+        {
+            var data = appdbcontext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
+
+            if (data == null)
+            {
+                return NotFound($"No employee found with EmployeeId {employeeId}");
+            }
+
+            data.EmployeeId = employee.EmployeeId;
+            data.Role = employee.Role;
+            data.Name = employee.Name;
+            data.Email = employee.Email;
+            data.Phone = employee.Phone;
+            data.Salary = employee.Salary;
+
+            appdbcontext.Employees.Update(data);
+
+            try
+            {
+                appdbcontext.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict($"An employee with EmployeeId {employee.EmployeeId} already exists.");
+            }
 
             return Ok(data);
         }
