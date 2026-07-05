@@ -9,7 +9,7 @@ namespace EMS.Models.Employee
         public required string Role { get; set; }
         public required string Name { get; set; }
         public required string Email { get; set; }
-        public required int Phone {get; set;}
+        public required long Phone {get; set;}
         public decimal? Salary { get; set; }
 
     }

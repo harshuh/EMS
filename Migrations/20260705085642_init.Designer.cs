@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260705072816_init")]
+    [Migration("20260705085642_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -42,8 +42,8 @@ namespace EMS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<long>("Phone")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Role")
                         .IsRequired()

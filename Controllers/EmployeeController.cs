@@ -44,7 +44,7 @@ namespace EMS.Controllers
             appdbcontext.Employees.Add(body);
             appdbcontext.SaveChanges();
 
-            return Ok(body);
+            return Created("api/employees/{id}",body);
 
 
         }
