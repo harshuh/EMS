@@ -75,21 +75,21 @@ namespace EMS.Controllers
         [Route("{employeeId:int}")]
         public IActionResult UpdateEmployeeById(int employeeId , Employee employee)
         {
-            var data = appdbcontext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
+            var user = appdbcontext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
 
-            if (data == null)
+            if (user == null)
             {
                 return NotFound($"No employee found with EmployeeId {employeeId}");
             }
 
-            data.EmployeeId = employee.EmployeeId;
-            data.Role = employee.Role;
-            data.Name = employee.Name;
-            data.Email = employee.Email;
-            data.Phone = employee.Phone;
-            data.Salary = employee.Salary;
+            user.EmployeeId = employee.EmployeeId;
+            user.Role = employee.Role;
+            user.Name = employee.Name;
+            user.Email = employee.Email;
+            user.Phone = employee.Phone;
+            user.Salary = employee.Salary;
 
-            appdbcontext.Employees.Update(data);
+            appdbcontext.Employees.Update(user);
 
             try
             {
@@ -100,8 +100,25 @@ namespace EMS.Controllers
                 return Conflict($"An employee with EmployeeId {employee.EmployeeId} already exists.");
             }
 
-            return Ok(data);
+            return Ok(user);
         }
 
+        // Delete Emp using emp id 
+        [HttpDelete]
+        [Route("{employeeId:int}")]
+        public IActionResult DeleteEmployeeById(int employeeId)
+        {
+            var user = appdbcontext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
+
+            if (user == null)
+            {
+                return NotFound($"Employee With this Id:{employeeId} not found");
+            }
+
+            appdbcontext.Employees.Remove(user);
+            appdbcontext.SaveChanges();  
+
+            return NoContent();
+        }
     }
 }
