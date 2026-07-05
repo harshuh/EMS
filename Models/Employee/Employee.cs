@@ -1,7 +1,9 @@
 ﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace EMS.Models.Employee
 {
+    [Index(nameof(EmployeeId), IsUnique = true)]
     public class Employee
     {
         public Guid Id { get; set; }

@@ -51,6 +51,9 @@ namespace EMS.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
                     b.ToTable("Employees");
                 });
 #pragma warning restore 612, 618

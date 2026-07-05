@@ -42,11 +42,31 @@ namespace EMS.Controllers
             };
 
             appdbcontext.Employees.Add(body);
-            appdbcontext.SaveChanges();
+            try
+            {
+                appdbcontext.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict($"An employee with EmployeeId {employee.EmployeeId} already exists.");
+            }
 
             return Created("api/employees/{id}",body);
 
-
         }
+
+        // Find Employee By Employee ID
+        [HttpGet]
+        [Route("{employeeId:int}")]
+        public IActionResult GetEmployeeByEmployeeID(int employeeId)
+        {
+            var data = appdbcontext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
+
+            if (data == null)
+                return NotFound($"No employee found with EmployeeId {employeeId}");
+
+            return Ok(data);
+        }
+
     }
 }

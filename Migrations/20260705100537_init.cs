@@ -27,6 +27,12 @@ namespace EMS.Migrations
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_EmployeeId",
+                table: "Employees",
+                column: "EmployeeId",
+                unique: true);
         }
 
         /// <inheritdoc />

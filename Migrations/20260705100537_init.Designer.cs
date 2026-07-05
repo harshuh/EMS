@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260705085642_init")]
+    [Migration("20260705100537_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -53,6 +53,9 @@ namespace EMS.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
